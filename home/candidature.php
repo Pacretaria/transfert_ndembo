@@ -199,4 +199,3 @@ include('db.php');
         </script>
     </body>
 </html>
-<?php
