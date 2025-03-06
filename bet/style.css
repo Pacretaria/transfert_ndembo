@@ -1,0 +1,224 @@
+body{
+    background : #720817;
+    margin: 0%;
+    font-family: Arial, Helvetica, sans-serif;
+    opacity: inherit;
+}
+section header{
+    display: flex;
+    background-color: #f59a00;
+    color: white;
+}
+section header #conteneur_logo{
+    width: 40%;
+    margin-left: 5%;
+}
+section header nav{
+    width: 50%;
+}
+section header nav ul{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 10px;
+}
+section header nav ul li{
+    list-style: none;
+}
+section header nav ul li:hover{
+    cursor: pointer;
+    font-weight: bold;
+}
+section header nav ul li:active{
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* corps */
+
+#corps{
+    display: flex;
+    margin-top: 20px;
+    z-index: 1;
+}
+section #banniere_promotionnelle{
+    background-color: rgb(250, 105, 105);
+    height: 400px;
+    width: 60%;
+    margin-left: 2.5%;
+    border-radius: 5px;
+}
+#banniere_promotionnelle h1{
+    text-align: center;
+    color: #f59a00;
+    position: relative;
+    top: -430px;
+    font-size: 50px;
+}#banniere_promotionnelle h1 span{
+    font-size: 25px;
+}
+section #banniere_promotionnelle img{
+    width: 100%;
+    height: 460px;
+}
+.slogan_baniere_promotionnelle{
+    background-color: #f59a00;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    margin-top: -155px;
+}
+#programme_matchs{
+    background-color: #f3efeffd;
+    width: 33%;
+    margin-left: 1.5%;
+    border-radius: 5px;
+    z-index: 2;
+}
+#programme_matchs h3{
+    background-color: #f59a00;
+    height: 40px;
+    color: white;
+    text-align: center;
+    padding-top: 15px;
+    margin-top: -1px;
+}
+#programme_matchs h6{
+    
+    margin-top: 10px;
+}
+#conteneur_programme{
+    text-align: center;
+}
+
+#conteneur_programme div{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    border-bottom: 0.5px solid #72081662;
+    margin-bottom: 25px;
+    cursor: pointer;
+    
+}
+.logo_club{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+#logo_club_a{
+    margin-top: -17px;
+}
+
+
+/* pari.php */
+
+#bloc_pari{
+    background-color: #f3efeffd;
+    width: 60%;
+    min-height: 600px;
+    margin: 2% 20%;
+    border-radius: 5px;
+    padding-top: 0px;
+}
+#bloc_pari #presentation_match{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding-top: 5%;
+    background-color: #f59a00;
+    color: white;
+}
+#bloc_pari .logo_club{
+    width: 100px;
+    height: 100px;
+}
+#bloc_pari #presentation_match div p{
+    text-align: center;
+}
+#bloc_pari #presentation_match .score{
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 40px;
+}
+#posibilite_pari{
+    width: 80%;
+    margin: 10%;
+    color: #772713;
+}
+#posibilite_pari h3{
+    text-align: center;
+    background-color: #f59a00;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    width: 30%;
+    margin-left: 35%;
+    margin-bottom: 60px;
+}
+.ballon{
+    position: relative;
+    top:5px;
+    width: 20px;
+}
+#posibilite_pari select{
+    font-size: 16px;
+}
+#posibilite_pari select{
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffff;
+    color: #720817;
+}
+#posibilite_pari select option{
+    color: #5c041062;
+    border-bottom: 1px solid #72081662;
+}
+#posibilite_pari .encadrement_pari{
+    display: flex;
+    justify-content: space-between;
+}
+#posibilite_pari .encadrement_pari div{
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin-bottom: 20px;
+}
+#posibilite_pari form button{
+    width: 99%;
+    margin-top: 30px;
+    margin-left: 0%;
+    margin-bottom: 50px;
+    text-align: center;
+    background-color: #720817;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 2px;
+    font-size: 16px;
+    font-weight: bold;
+}
+#apercus_pari{
+    display: flex;
+    justify-content: space-between;
+    background-color: #f59a00;
+    color: white;
+    width: 97%;
+    padding: 5px;
+    font-weight: bold;
+    border-radius: 2px;
+}
+#apercus_pari input{
+    width: 35%;
+    min-height: 40px;
+    background-color: #f5b547;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: right;
+    color: white;
+    border: 0px;
+}
+
+

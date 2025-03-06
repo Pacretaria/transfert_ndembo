@@ -1,0 +1,271 @@
+<?php
+include('../db.php');
+if (isset($_SESSION['nom'],$_SESSION['prenom'],$_SESSION['mail'],$_SESSION['reference'])) {
+ if($_SESSION['acces'] == 'agent'){
+
+    if (isset($_GET['reference_user'])) {
+        
+        $reference = htmlspecialchars($_GET['reference_user']);
+        
+        $recuperation_infos_utilisateur = $db->prepare('SELECT * FROM `utilisateurs` WHERE (reference = ?)');
+        $recuperation_infos_utilisateur->execute(array($reference));
+        $lignes_trouver = $recuperation_infos_utilisateur->rowCount();
+
+        if ($lignes_trouver == 1) {
+            
+            $donnees = $recuperation_infos_utilisateur->fetch();
+
+        }
+
+        
+    }
+    else {
+        header('location:comptes.php');
+    }
+
+    $error_sub_form = null;
+
+    if (isset($_POST['bouton_envoi'])) {
+        if (isset($_POST['nom'],$_POST['prenom'],$_POST['mail'],$_POST['acces'],$_POST['pass'],$_POST['contact']) ) {
+            
+            $nom = htmlspecialchars($_POST['nom']);
+            $prenom = htmlspecialchars($_POST['prenom']);
+            $mail = htmlspecialchars($_POST['mail']);
+            $acces = htmlspecialchars($_POST['acces']);
+            $contact = htmlspecialchars($_POST['contact']);
+            $pass = htmlspecialchars($_POST['pass']);
+            
+            $heure = date('H');
+            $heure = $heure.date(':i');
+
+            $verification_compte = $db->prepare('SELECT * FROM `utilisateurs` WHERE (mail = ?) and (prenom = ?) and (reference = ?)');
+			$verification_compte->execute(array($mail,$prenom,$reference));
+
+            $ligne_comptes = $verification_compte->rowCount();
+
+            if ($ligne_comptes == 1) {
+                
+
+                $enregistrement_client = $db->prepare('UPDATE `utilisateurs` SET `nom`=?, `prenom`=?, `mail`=?, `acces`=?, `contact`=?, `mot_passe`=? WHERE (reference = ?)');
+                $enregistrement_client->execute(array($nom,$prenom,$mail,$acces,$contact,$pass,$reference));
+
+                header('location:modification_profil.php?ref='.$reference);
+                
+
+            } else {
+                $error_sub_form = "*Cette comptes existe déjà";
+            }
+
+        }
+        else {
+            $error_sub_form = "*veuillez remplir toutes les champs du formulaire";
+        }
+    }
+?>
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Enregistrement des clients</title>
+        <link rel="stylesheet" href="../css/style.css">
+        <link rel="shortcut icon" href="../images/logo.png" type="image/x-icon">
+        <style>
+            body{
+                background-color: #ddd5d8;
+            }
+            form{
+                background-color: white;
+                width:60%;
+                margin-left: 20%;
+                padding: 10px 15px;
+                border-radius:2px;
+                overflow: hidden;
+                padding-top:20px;
+            }
+            form h1{
+                text-align:center;
+                font-family:arial black;
+                color: #d87d16;
+                font-size:20px;
+                margin-bottom: 30px;
+            }
+            .portion{
+                width:50%;
+            }
+            input{
+                height:40px;
+                width:95%;
+                margin: 2.5% 1.5%;
+                border:1px solid #caccce;
+                border-radius:3px;
+            }
+            select{
+                height:45px;
+                width:97%;
+                margin: 2.5% 1.5%;
+                border:1px solid #caccce;
+                border-radius:3px;
+            }
+            label{
+                margin-left:5px;
+                font-family: arial;
+                font-size: 14px;
+                font-weight: bold;
+                opacity:0.8;
+            }
+            #bouton_suivant{
+                display: block;
+                height:50px;
+                width:95%;
+                margin: 6% 1.5% 0% 1.5%;
+                background-color: #720817;
+                border-color: #720817;
+                border-radius:2px;
+                border:none;
+                border:3px solid #720817;
+                color:white;
+                font-size:19px;
+            }
+            #bouton_suivant:hover{
+                background-color: transparent;
+                color: #720817;
+            }
+            #redirection{
+                width:95%;
+                height:30px;
+                margin-bottom:25px;
+                margin-left: 1.5%;
+                background-color:#d87d16;
+                color:white;
+                border:none;
+                border:3px solid #d87d16;
+                border-radius:2px;
+                font-size:17px;
+                display: block;
+                text-align: center;
+                padding-top: 10px;
+                text-decoration: none;
+            }
+            #redirection:hover{
+                background-color: transparent;
+                color: #d87d16;
+            }
+            #conteneur{
+                display: flex;
+            }
+            .error{
+                color: red;
+                text-align: center;
+            }
+            
+            @media screen and (max-width: 850px){
+                form{
+                    width: 85%;
+                    margin-left:5.5%;
+                }
+                #bouton_suivant{
+                    width:96%;
+                }
+            }
+            @media screen and (max-width: 500px){
+                form{
+                    width: 90%;
+                    margin-left:1%;
+                }
+                .portion{
+                    width:100%;
+                    margin-left:0%;
+                }
+                #conteneur{
+                    display: block;
+                }
+            }
+            @media screen and (max-width: 350px){
+                form{
+                    width: 100%;
+                    margin-left:-2%;
+                }
+                .portion{
+                    width:100%;
+                    margin-left:0%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <form action="" enctype="multi/form-data" method="post">
+
+            <h1> MODIFIER L'UTILISATEUR </h1>
+
+            <div id="conteneur">
+                <div class="portion">
+                    <div>
+                        <label for="nom"> Nom </label>
+                        <input type="text" name="nom" value="<?php echo $donnees['nom'] ?>" id="nom">
+                    </div>
+
+                    <div>
+                        <label for="prenom">Prénom</label>
+                        <input type="text" name="prenom" value="<?php echo $donnees['prenom'] ?>" id="prenom">
+                    </div>
+
+                    <div>
+                        <label for="mail"> Adresse Email</label>
+                        <input type="mail" name="mail" id="mail" value="<?php echo $donnees['mail'] ?>">
+                    </div>
+
+                </div>
+
+
+                <div class="portion">
+
+                    <div>
+                            <label for="fonction">Téléphone</label>
+                            <input type="text" name="contact" id="contact" value="<?php echo $donnees['contact'] ?>">
+                    </div>
+
+                    <div>
+                        <label for="acces"> Type de Compte </label>
+                        <select name="acces" id="acces">
+                            <option value="<?php echo $donnees['acces'] ?>"><?php echo $donnees['acces'] ?></option>
+                        </select>
+                    </div>
+
+                    <div>
+                            <label for="pass">Mot de Passe</label>
+                            <input type="text" name="pass" id="pass" value="<?php echo $donnees['mot_passe'] ?>">
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div>
+                <button name="bouton_envoi" id="bouton_suivant" >Enregistrer</button>
+            </div>
+                
+            <div>
+                <p class="error"> <?php echo $error_sub_form; ?> </p>
+            </div>
+
+            <div>
+                <a href="index.php" id="redirection"> Quitter </a>
+            </div>
+        </form>
+        <script>
+            function menu(){
+                document.getElementById("menu").style.marginLeft = "0%";
+            }
+        </script>
+    </body>
+</html>
+<?php
+    }
+    else {
+        header('location:../');
+    }
+}
+else {
+    header('location:../');
+}
