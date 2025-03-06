@@ -23,7 +23,7 @@ $recuperation_infos_joueurs->execute(array());
 <html lang="en">
 <head>
 
-     <title>Transfert Ndembo</title>
+     <title>Transfert test synapse Ndembo</title>
 <!-- 
 
 Known Template 
