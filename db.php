@@ -4,7 +4,7 @@ $connect = NULL;
 $recherche = null;
 try
 {
-	$db = new PDO('mysql:host=localhost;dbname=trans2524376;charset=utf8;', 'root', '');
+	$db = new PDO('mysql:host=localhost;dbname=u911414181_ndembo;charset=utf8;', 'u911414181_ndembo', 'ndemboSynapse2025@');
     $connect = 'connect';
 }
 catch(Exception $e)
