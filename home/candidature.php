@@ -185,7 +185,7 @@ include('db.php');
             </div>
                 
             <div>
-                <p class="error"> <?php echo $error_sub_form; ?> </p>
+                <p class="error"> <?= $error_sub_form; ?> </p>
             </div>
 
             <div>
